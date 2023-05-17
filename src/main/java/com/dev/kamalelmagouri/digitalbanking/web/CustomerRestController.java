@@ -22,14 +22,24 @@ public class CustomerRestController {
     }
 
     @GetMapping("/customers/{id}")
-    public ResponseEntity getCustomerById(@PathVariable(name = "id") int id){
-        Customer customer = customerRepository.findById(id).orElse(null);
-        if(customer != null){
-            return  ResponseEntity.ok().body(customer);
-        }else{
-            return ResponseEntity.internalServerError().body(Map.of("errorMessage","Customer Not Found!"));
+    public ResponseEntity getCustomerById(@PathVariable(name = "id") Object id) {
+
+        try {
+            int myId = Integer.parseInt(id.toString());
+            Customer customer = customerRepository.findById(myId).orElse(null);
+            if (customer != null) {
+                return ResponseEntity.ok().body(Map.of("existe", true, "data", customer));
+            } else {
+                return ResponseEntity.internalServerError().body(Map.of("existe", false, "errorMessage", "Customer Not Found!"));
+            }
+
+        } catch (Exception ex) {
+            //Generate error when input data doesn't correct
+            return ResponseEntity.internalServerError().body(Map.of("existe", false, "errorMessage", ex.getMessage()));
         }
     }
+
+
 
     @PostMapping("/customers")
     public Customer saveCustomer(@RequestBody Customer customer){
