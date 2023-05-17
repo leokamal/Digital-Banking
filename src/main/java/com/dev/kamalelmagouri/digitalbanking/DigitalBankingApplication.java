@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 
+import java.util.Date;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -30,12 +31,13 @@ public class DigitalBankingApplication {
 				customerRepository.save(customer);
 			});
 		customerRepository.findAll().forEach(customer -> {
-			for (int i =1; i<=10;i++){
+			for (int i =1; i<=3;i++){
 				BankAccount bankAccount = BankAccount.builder()
 						.id(UUID.randomUUID().toString())
 						.type( (i%2==0)? AccountType.CURRENT_ACCOUNT: AccountType.SAVING_ACCOUNT)
 						.balance(2000*Math.random()*10000)
 						.currency("MAD")
+						.createdAt(new Date())
 						.customer(customer)
 						.build();
 				bankAccountRepository.save(bankAccount);

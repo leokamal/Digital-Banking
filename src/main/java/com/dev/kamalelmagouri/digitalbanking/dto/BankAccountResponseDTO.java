@@ -1,4 +1,4 @@
-package com.dev.kamalelmagouri.digitalbanking.entities;
+package com.dev.kamalelmagouri.digitalbanking.dto;
 
 import com.dev.kamalelmagouri.digitalbanking.enums.AccountType;
 import lombok.AllArgsConstructor;
@@ -6,18 +6,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.util.Date;
 
-@Entity
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
-public class BankAccount {
-    @Id
+public class BankAccountResponseDTO {
     private String id;
+    private Date createdAt;
     private double balance;
     private String currency;
-    private Date createdAt;
     private AccountType type;
-    @ManyToOne
-    private Customer customer;
 }

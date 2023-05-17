@@ -18,14 +18,14 @@ import java.util.List;
 public class Customer {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    private long id;
+    private int id;
     private String firstName;
     private String lastName;
     @Column(name = "EMAIL", length = 50, unique = true)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String email;
-    @OneToMany(mappedBy="Customer")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy="customer")
+    //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<BankAccount> bankAccounts;
 
 }
